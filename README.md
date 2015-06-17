@@ -10,7 +10,6 @@ This is a community source code of nodejs powered by [Sails](http://sailsjs.org)
 
 ## Install
 
-
 ```
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
@@ -41,3 +40,4 @@ grunt
 sails lift
 
 ```
+![image](https://github.com/tigerlove/bangbangda/edit/master/screenshot/1.png)
