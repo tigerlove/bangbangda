@@ -40,4 +40,4 @@ grunt
 sails lift
 
 ```
-![image](https://github.com/tigerlove/bangbangda/edit/master/screenshot/1.png)
+![image](https://raw.githubusercontent.com/tigerlove/bangbangda/master/screenshot/1.png)
