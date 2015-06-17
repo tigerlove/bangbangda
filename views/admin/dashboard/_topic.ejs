@@ -1,0 +1,29 @@
+<div class="list-group-item topic-linkbg" >
+
+    <% if(req.options.user){ %>
+
+    <% if(_.contains(topic.upvote_ids,req.options.user.id)){%>
+    <a class='upvote js-like-topic' href='/topics/<%- topic.id%>/unlike'><span class="upvote-arrow"><i class='fa fa-caret-up'></i> </span><span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+    <% }else{ %>
+    <a class='upvote js-like-topic' href='/topics/<%- topic.id%>/like'><span class="upvote-arrow"><i class='fa fa-caret-up'></i> </span> <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+    <% } %>
+    <% }else{%>
+    <a class='upvote' href='/login'><span class="upvote-arrow"><i class='fa fa-caret-up'></i> </span> <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+    <% }%>
+
+    <div class="post-comments-fr"> <%- topic.replies.length %> <%= __('topic')['_topic']['']%><i class="fa  fa-comment c-ddd"></i></div>
+    <div class='list-group-item-avatar'>
+        <img class='img-rounded img-avatar-md' alt="avatar" src='/avatar/<%- topic.owner.id %>'>
+    </div>
+    <div class='list-group-item-content'>
+        <div class='list-group-item-heading'>
+            <b><%= topic.title %></b>
+        </div>
+        <article class='comment-body comment-content'>
+            <%- (topic.content) %>
+        </article>
+
+    </div>
+    <a class="topic-link" href='/admin/topics/<%- topic.id %>/edit'></a>
+</div>
+

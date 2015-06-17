@@ -1,0 +1,65 @@
+.list-group-item.comment {
+  .list-group-item-heading {
+    margin-bottom: $line-height-computed / 2;
+    color: $gray-light;
+    .comment-user-font{ font-size: 14px; color: #999}
+    a {
+      color: $gray-light;
+    }
+
+    .comment-user {
+      b {
+       /* color: $gray-dark;*/ color: #03a9f4;
+      }
+
+      &:hover {
+        text-decoration: none;
+
+        b {
+          /*color: $link-hover-color;*/color: #03a9f4;
+         /* text-decoration: underline;*/
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .list-group-item-actions { color: #999;
+    .comment-at{ font-size: 12px;}
+    a{ color: #999}
+    .liked {
+      color: $brand-danger;
+
+      &:hover {
+        color: $brand-danger;
+      }
+    }
+  }
+
+  @media (max-width: $screen-xs) {
+    .list-group-item-avatar {
+      img {
+        height: 24px;
+        width: 24px;
+      }
+    }
+
+    .list-group-item-avatar + .list-group-item-content {
+      margin-left: 0;
+    }
+
+    .list-group-item-heading {
+      margin-left: 34px;
+      line-height: 24px;
+
+    }
+  }
+}
+.user-not-login{padding: 30px 30px 20px;
+  text-align: center;
+  background-color: #f7f8f8;
+  margin: 10px 0;
+  color: #5c5c5c;
+  a{ color: #03a9f4}}
+.commentable {
+}

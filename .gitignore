@@ -1,0 +1,22 @@
+# Npm install files
+node_modules
+npm-debug.log
+
+# Config files
+
+
+# Log file
+
+
+# Swap and meta data files
+.DS_Store
+*.swp
+*.swo
+
+#NEDB files
+*.db
+v8.log
+*.sublime-workspace
+.idea
+.sass-cache
+.tmp

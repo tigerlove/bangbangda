@@ -1,0 +1,19 @@
+<a class='list-group-item-link' >
+	<div class='list-group-item-avatar'>
+		<a href='~/<%- n.author.username%>'>
+			<img class="img-rounded img-avatar-md" alt="avatar" src="/avatar/<%- n.author.id%>">
+		</a>
+	</div>
+	<div class='list-group-item-content'>
+		<div class='list-group-item-heading'>
+			<b><%= n.author.displayname%></b>
+			@<%= n.author.username%>
+			<%= n.title %>
+			<a href='/topics/<%- n.to_topic.id%>'><%= n.to_topic.title%></a>
+			<span class='timeago' title='<%- n.to_reply.createdAt.toISOString()%>'></span>
+		</div>
+		<div class='text-muted'>
+			<%- md(n.to_reply.content)%>
+		</div>
+	</div>
+</a> 

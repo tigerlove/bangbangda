@@ -1,0 +1,18 @@
+<div class='panel user-profile'>
+  <div class='panel-body'>
+    <div class='user-profile-avatar'>
+      <img class='img-rounded' alt='avatar' src='/avatar/<%- people.id %>'>
+    </div>
+    <div class='user-profile-name'>
+      <%= people.displayname%>
+      <span class='text-muted'>@<%= people.username %></span>
+    </div>
+     <% if(req.options.user && req.options.user.id == people.id){ %>
+        <div class='panel-footer clearfix'>
+          <div>
+            <a href="/setting/profile" class="btn btn-default"><%= __('people')['show']['edit_profile'] %></a>
+          </div>
+        </div>
+     <% }%>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="/styles/normalize.css">
+<link rel="stylesheet" href="/styles/demo.css">
+<link rel="stylesheet" href="/styles/medium-editor.css">
+<link rel="stylesheet" href="/styles/default.css" id="medium-editor-theme">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="/styles/medium-editor-insert-plugin.css">
+
+<style>
+    .medium-insert-images-slideshow figure {
+        width: 100%;
+    }
+    .medium-insert-images-slideshow figure img {
+        margin: 0;
+    }
+
+    .medium-insert-images.medium-insert-images-grid.small-grid figure {
+        width: 10%;
+    }
+
+    @media (max-width: 750px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 25%;
+        }
+    }
+</style>
+<div id="container">
+    <div class="editable" data-placeholder="Type some text">
+        <h3>jQuery insert plugin for MediumEditor</h3>
+
+        <p>This is <strong>a demo</strong> of jQuery insert plugin for MediumEditor.</p>
+
+        <blockquote>HINT: This whole website is an editable editor. You can click on text and start typing.</blockquote>
+
+        <p>If you want to insert an image, <strong>create a new empty paragraph</strong> and the plugin's button will appear on the left. From there it's pretty self-explanatory. Have fun.</p>
+
+        <h4>What to do next?</h4>
+
+        <p>Please, go to <a href="https://github.com/orthes/medium-editor-insert-plugin">our GitHub repository</a> for installation and configuration info. Did you find a bug, have an idea or want to contribute? Great! Do not miss our <a href="https://github.com/orthes/medium-editor-insert-plugin/issues">issues page on GitHub</a>.</p>
+
+        <h4>Contributors</h4>
+
+        <p>This plugin is brought to you thanks to these great contributors from all around the world:</p>
+
+
+
+        <p><em>... And yes, you can create this nice images grid with the plugin. And much more...</em></p>
+
+        <h4>License</h4>
+        <textarea class="editable medium-editor-textarea"></textarea>
+
+        <p>The plugin is free and released under MIT license.</p>
+    </div>
+
+    <footer>
+        <a href="https://github.com/orthes/medium-editor-insert-plugin"><span class="fa fa-github"></span></a>
+        <a href="http://twitter.com/linkesch"><span class="fa fa-twitter"></span></a>
+    </footer>
+</div>
+
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
+<script src="/js/medium-editor.js"></script>
+<script src="/js/handlebars.runtime.min.js"></script>
+<script src="/js/jquery-sortable.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/20140415/jquery.cycle2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/20140415/jquery.cycle2.center.min.js"></script>
+
+<!--<script src="../dist/js/medium-editor-insert-plugin.min.js"></script>-->
+<script src="/js/templates.js"></script>
+<script src="/js/core.js"></script>
+<script src="/js/embeds.js"></script>
+<script src="/js/images.js"></script>
+
+<script>
+    var editor = new MediumEditor('.editable', {
+        buttonLabels: 'fontawesome'
+    });
+    var url='uploadimage?_csrf='+encodeURIComponent('<%= _csrf %>');
+    $(function () {
+        $('.editable').mediumInsert({
+            editor: editor,
+            addons: {
+                images: {
+                    label: '<span class="fa fa-camera"></span>', // (string) A label for an image addon
+                    uploadScript: url, // (string) A relative path to an upload script
+                    deleteScript: 'delete.php', // (string) A relative path to a delete script
+                    preview: true, // (boolean) Show an image before it is uploaded (only in browsers that support this feature)
+                    captionPlaceholder: 'Type caption for image (optional)', // (string) Caption placeholder
+                    autoGrid: 3, // (integer) Min number of images that automatically form a grid
+                    formData: {},
+                    styles: {
+                        slideshow: {
+                            label: '<span class="fa fa-play"></span>',
+                            added: function ($el) {
+                                $el
+                                        .data('cycle-center-vert', true)
+                                        .cycle({
+                                            slides: 'figure'
+                                        });
+                            },
+                            removed: function ($el) {
+                                $el.cycle('destroy');
+                            }
+                        }
+                    },
+                    actions: false
+                }
+            }
+        });
+    });
+
+</script>

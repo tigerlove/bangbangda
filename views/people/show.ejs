@@ -1,0 +1,68 @@
+<script>
+    $(document).ready(function(){
+        $('.timeago').timeago();
+    });
+</script>
+<div class='main'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-3'>
+                <%- partial('../partials/_profile.ejs')%>
+                <!--<div class='panel user-profile'>-->
+                    <!--<div class='panel-body'>-->
+                        <!--<header><%= __('people')['show']['person_status'] %></header>-->
+                        <!--<ul>-->
+                            <!--<li><%= __('people')['show']['topics_count'] %></li>-->
+                            <!--<li><%= __('people')['show']['replies_count'] %></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <!--<div class='col-md-9'>-->
+            <div class="col-md-9">
+                <div id='topics' class='panel pt20'>
+                  <!--  <div class='panel-heading clearfix'>
+                        <div class='pull-right'>-->
+                            <ul class='nav nav-tabs nav-titlebox' >
+                                <li class='active'>
+                                    <a href='/~<%= people.username %>/topics'><%= __('people').show.create_topic%></a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a href='/~<%= people.username %>/replies'><%= __('people').show.reply_topic%></a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href='/~<%= people.username %>/topics/upvoted'><%= __('people').show.upvote_topic%></a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href='/~<%= people.username %>/replies/upvoted'><%= __('people').show.upvote_reply%></a>-->
+                                <!--</li>-->
+                                <!--<div class="pull-right">-->
+                                    <!--<% if(req.options.user && req.options.user.id == people.id){ %>-->
+                                    <!--<div class='&lt;!&ndash;panel-footer &ndash;&gt;clearfix'>-->
+                                        <!--<div>-->
+                                            <!--<a href="/setting/profile" class="btn btn-default "><%= __('people')['show']['edit_profile'] %></a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<% }%>-->
+                                <!--</div>-->
+                            </ul>
+                      <!--  </div>
+
+                    </div>-->
+                    <div class='panel-body '>
+                        <br/>
+                        <div class='list-group list-group-campo'>
+                            <% _.each(topics, function (t) { %>
+                                <%- partial('../topic/_topic.ejs', {'topic':t}) %>
+                            <% }) %>
+                        </div>
+                        <ul class="pager right">
+                            <li><a href="?page=<%= pageNo-1%>"><%= __('previous') %></a></li>
+                            <li><a href="?page=<%= pageNo+1%>"><%= __('next') %></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

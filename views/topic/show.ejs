@@ -1,0 +1,220 @@
+<link rel="stylesheet" href="/styles/medium-editor.css">
+<link rel="stylesheet" href="/styles/medium-theme-bootstrap.css" id="medium-editor-theme">
+<link rel="stylesheet" href="/styles/medium-editor-insert-plugin.css">
+<link rel="stylesheet" href="/styles/github-gist.css">
+<!--<link rel="stylesheet" href="/styles/material-wfont.css">
+<link rel="stylesheet" href="/styles/ripples.css">-->
+<style>
+    .medium-insert-images-slideshow figure {
+        width: 100%;
+    }
+    .medium-insert-images-slideshow figure img {
+        margin: 0;
+    }
+
+    .medium-insert-images.medium-insert-images-grid.small-grid figure {
+        width: 10%;
+    }
+
+    @media (max-width: 750px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 25%;
+        }
+    }
+</style>
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
+<script src="/js/medium-editor.js"></script>
+<script src="/js/handlebars.runtime.min.js"></script>
+<script src="/js/jquery-sortable.js"></script>
+<script src="/js/jquery.cycle2.js"></script>
+<script src="/js/jquery.cycle2.center.js"></script>
+<script src="/js/highlight.pack.js"></script>
+<!--<script src="../dist/js/medium-editor-insert-plugin.min.js"></script>-->
+<script src="/js/medium-editor-insert-plugin.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.timeago').timeago();
+        $('.js-like-topic').click(function(event){
+            event.preventDefault();
+            var self = $(this);
+            $.get(self.attr('href'),function(topic){
+                var href = self.attr('href');
+                console.log(href);
+                if(href.indexOf('unlike') >= 0){
+                    href = href.replace('unlike','like');
+                    self.children('i').attr('class','fa fa-caret-up');
+                }else{
+                    href = href.replace('like','unlike');
+                    self.children('i').attr('class','fa fa-caret-up');
+                }
+                self.attr('href',href);
+
+                $('.js-upvote-count').html(topic.upvote_ids.length);
+            });
+        });
+        $('.js-topic-delete').click(function(event){
+            var href = $(this).attr('href')+'?_csrf='+encodeURIComponent('<%= _csrf %>');
+            event.preventDefault();
+            $.ajax({
+                type: "DELETE",
+                url: href,
+                success: function (msg) {
+                    console.log('delete topic');
+                    window.location = "/";
+                }
+            });
+        })
+
+        $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+
+
+    });
+</script>
+<div class='main'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-10 col-md-offset-1'>
+                 <div class="panel panel-mb0">
+                    <div class='panel-heading'>
+                        <% if(req.options.user){%>
+                       <!-- <% if(_.contains(topic.upvote_ids,req.options.user.id)){%>
+                        <a class='btn js-like-reply  '' href='/topics/<%- topic.id%>/unlike'><span class="upvote-arrow"><i class='fa fa-caret-up'></i></span> <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+                        <% }else{ %>
+                        <a class='btn js-like-reply  ' href='/topics/<%- topic.id%>/like'><span class="upvote-arrow"><i class='fa fa-caret-up'></i> </span><span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+                        <% } %>-->
+                        <% if(_.contains(topic.upvote_ids,req.options.user.id)){%>
+                        <a class='btn js-like-topic upvote upvote-like' href='/topics/<%- topic.id%>/unlike'><i class='fa fa-caret-up'></i> <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+                        <% }else{ %>
+                        <a class='btn js-like-topic upvote upvote-like' href='/topics/<%- topic.id%>/like'><i class='fa fa-caret-up'></i> <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+                        <% } %>
+                        <% }else{%>
+                        <a class='btn js-like-topic upvote upvote-like' href='/login'><i class='fa fa-caret-up'></i>  <span class='js-upvote-count'><%- topic.upvote_ids.length %></span></a>
+                        <% } %>
+
+                       <div class="panel-headercont user-heading"> <h1 class='panel-title'> <%- topic.title %></h1>
+                           <div class='list-group-item-heading item-headstyle'>
+                               <a class='comment-user'  href='/~<%- topic.owner.username %>' data-name='<%= topic.owner.username %>'>
+
+                                   <%= topic.owner.displayname %>
+                                  <!-- @<%= topic.owner.username %>-->
+                               </a>
+                               <%= '&nbsp;' %>
+                               <span class='timeago' title='<%-topic.createdAt.toISOString() %>'></span>
+                               <% if(req.options.user && (req.options.user.id == topic.owner.id)){ %>
+                               <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>
+                               <a class='' href='/topics/<%- topic.id %>/edit'>
+                                   <i class='fa fa-pencil'></i>
+                               </a>
+                               <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>
+                               <a class='js-topic-delete' href='/topics/<%- topic.id %>/delete' data-id="<%- topic.id %>">
+                                   <i class='fa fa-trash-o'></i>
+                               </a>
+                               <% } %>
+                           </div>
+
+
+
+                       </div>
+                        <a class='list-group-item-avatar head-fr' href='~<%- topic.owner.username %>'>
+                            <img class='img-rounded img-avatar-md' alt='avatar' src='/avatar/<%- topic.owner.id %>'>
+                        </a>
+                    </div>
+                     </div>
+                    <div class='panel-body'>
+                        <div class='list-group list-group-campo'>
+                            <div class="list-group-item comment">
+                                <div class='list-group-item-content'>
+                                    <article class='comment-body'>
+                                        <%- (topic.content) %>
+                                    </article>
+                                    <div class='list-group-item-actions clearfix pt20 text-center'>
+                                        <!-- JiaThis Button BEGIN -->
+                                        <div class="jiathis_style_32x32">
+                                            <div class="panel-heading"> <h3 class="panel-title share-font">分享到</h3></div>
+                                            <a class="jiathis_button_tsina"><i class="fa fa-weibo"></i>微博</a>
+                                            <a class="jiathis_button_weixin"><i class="fa fa-weixin"></i>微信</a>
+                                        </div>
+                                        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+                                        <!-- JiaThis Button END -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                 <div class='panel'>
+                    <div class='panel-body'>
+                         <% if(req.options.user){%>
+                            <div class='list-group list-group-campo'>
+
+                                    <h3 class="panel-title"><b>讨论</b></h3>
+
+                                <div class='list-group-item comment'>
+                                    <!--<a class='list-group-item-avatar pull-left' href="~<%= req.options.user.username %>">
+                                        <img class='img-rounded img-avatar-md' alt='avatar' src="/avatar/<%= req.options.user.id %>">
+                                    </a>-->
+                                    <div class='list-group-item-content' id='editor'>
+                                        <div class='list-group-item-heading'>
+                                           <!-- <a class='comment-user' href='~<%= req.options.user.username %>'>
+                                                <b><%= req.options.user.displayname %></b>
+                                               &lt;!&ndash; @<%= req.options.user.username %>&ndash;&gt;
+                                            </a>-->
+                                        </div>
+
+                                        <form id='reply_form' accept-charset='UTF-8' action='/reply?topic_id=<%- topic.id%>' method="POST" class='new_reply'>
+                                            <%- partial('../reply/_form.ejs')%>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}else{%>
+                           <!-- <a class='btn btn-success' href='/login'><%= __('login') %></a>
+                            <%= '   ' %>
+                            <a class='btn btn-success' href='/signup'><%= __('signup') %></a>-->
+                        <div class="user-not-login"><p>参与讨论前请先 <a class='' href='/login'><%= __('login') %></a></p></div>
+                        <%}%>
+                    </div>
+                 </div>
+                <div id="comments" class='panel'>
+                   <!-- <div class='panel-heading'>
+                        <h3 class='panel-title'><%- __('replies') %></h3>
+                    </div>-->
+                    <div class='panel-body'>
+                        <ul class='list-group list-group-campo' id="comments-for-topic-<%= topic.id%>">
+                            <% if(topic.replies.length>0){%>
+                            <%- partial('../reply/_replies.ejs') %>
+                            <% }else{%>
+                            <li class='list-group-item text-center text-muted empty-message'>
+                                <!-- no reply -->
+                            </li>
+                            <% } %>
+                        </ul>
+                        <!-- <ul class="pager right">
+                            <li><a href="#%>"><%= __('previous') %></a></li>
+                            <li><a href="#"><%= __('next') %></a></li>
+                        </ul>-->
+                    </div>
+                </div>
+            </div>
+            <!--<div class='col-md-3'>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        <h4 class="panel-title"><%= __('topic').show.relate_topics %></h4>
+                    </div>
+                    <div class='panel-body'>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>	

@@ -1,0 +1,31 @@
+
+<div class='form-group'>
+
+    <input type='title' class='form-control' placeholder='<%= __('topic')['title']%>' name='title'>
+</div>
+
+
+<div class='form-group'>
+	<div id='editor-button-bar'>
+	</div>
+	<div>
+		<textarea class="editable medium-editor-textarea"  name='content'></textarea>
+    </div>
+    <input type="hidden" id='topic_data' name='topic_data' value=''/>
+	<input type='hidden' id='tags_content' name='tags_content' value=''/>
+</div>
+
+<div class='form-group'>
+	<select type='text' class='form-control' name='tag' id='tags'>
+		<option value='share'>分享</option>
+		<option value='qa'>问答</option>
+		<option value='guide'>教程</option>
+		<option value='STM32'>STM32</option>
+		<option value='arduino'>arduino</option>
+		<option value='raspberrypi'>Raspberry Pi</option>
+	</select>
+</div>
+
+
+
+

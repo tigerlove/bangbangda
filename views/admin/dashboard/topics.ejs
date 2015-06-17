@@ -1,0 +1,44 @@
+<script>
+    $(document).ready(function(){
+        $('.timeago').timeago();
+        $('.js-like-topic').click(function(event){
+            event.preventDefault();
+            var self = $(this);
+            $.get(self.attr('href'),function(topic){
+                var href = self.attr('href');
+                console.log(href);
+                if(href.indexOf('unlike') >= 0){
+                    href = href.replace('unlike','like');
+                    self.children('i').attr('class','fa fa-caret-up');
+                }else{
+                    href = href.replace('like','unlike');
+                    self.children('i').attr('class','fa fa-caret-up');
+                }
+                self.attr('href',href);
+
+                self.find('.js-upvote-count').html(topic.upvote_ids.length);
+            });
+        });
+    });
+</script>
+<div class='main'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-10 col-md-offset-1'>
+                <div class='panel-body'>
+                    <div class='list-group list-group-campo'>
+
+                        <% _.each(topics, function (t) { %>
+                            <%- partial('_topic.ejs', {'topic':t}) %>
+                        <% }) %>
+                    </div>
+                    <ul class="pager right">
+                        <li><a href="?page=<%= pageNo-1%>"><%= __('previous') %></a></li>
+                        <li><a href="?page=<%= pageNo+1%>"><%= __('next') %></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

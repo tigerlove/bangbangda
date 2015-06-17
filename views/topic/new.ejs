@@ -1,0 +1,112 @@
+
+<link rel="stylesheet" href="/styles/medium-editor.css">
+<link rel="stylesheet" href="/styles/medium-theme-bootstrap.css" id="medium-editor-theme">
+<link rel="stylesheet" href="/styles/medium-editor-insert-plugin.css">
+
+<style>
+    .medium-insert-images-slideshow figure {
+        width: 100%;
+    }
+    .medium-insert-images-slideshow figure img {
+        margin: 0;
+    }
+
+    .medium-insert-images.medium-insert-images-grid.small-grid figure {
+        width: 10%;
+    }
+
+    @media (max-width: 750px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 25%;
+        }
+    }
+</style>
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
+<script src="/js/medium-editor.js"></script>
+<script src="/js/handlebars.runtime.min.js"></script>
+<script src="/js/jquery-sortable.js"></script>
+<script src="/js/jquery.cycle2.js"></script>
+<script src="/js/jquery.cycle2.center.js"></script>
+<script src="/js/medium-editor-insert-plugin.js"></script>
+<script>
+    $(document).ready(function(){
+        var topic_editor = new MediumEditor('.editable', {
+            buttonLabels: 'fontawesome'
+        });
+
+        var url='/uploadimage?_csrf='+encodeURIComponent($('input[name="_csrf"]').val());
+        $('.editable').mediumInsert({
+            editor: topic_editor,
+            addons: {
+                images: {
+                    label: '<span class="fa fa-camera"></span>', // (string) A label for an image addon
+                    uploadScript: url, // (string) A relative path to an upload script
+                    deleteScript: 'delete.php', // (string) A relative path to a delete script
+                    preview: true, // (boolean) Show an image before it is uploaded (only in browsers that support this feature)
+                    captionPlaceholder: 'Type caption for image (optional)', // (string) Caption placeholder
+                    autoGrid: 3, // (integer) Min number of images that automatically form a grid
+                    formData: {},
+                    styles: {
+                        slideshow: {
+                            label: '<span class="fa fa-play"></span>',
+                            added: function ($el) {
+                                $el.data('cycle-center-vert', true)
+                                   .cycle({
+                                            slides: 'figure'
+                                        });
+                            },
+                            removed: function ($el) {
+                                $el.cycle('destroy');
+                            }
+                        }
+                    },
+                    actions: false
+                }
+            },
+            paste: {
+                cleanPastedHTML: true,
+                forcePlainText: false
+            }
+        });
+        $('#topic_submit').click(function(){
+            var allcontents=topic_editor.serialize();
+            console.log(allcontents);
+            for(var i in allcontents){
+                var data=allcontents[i]['value'];
+                $('#topic_data').val(data);
+                console.log(data);
+            }
+            $('#topic_form').submit();
+
+        })
+    });
+</script>
+<div class='main'>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-10 col-md-offset-1'>
+				<div class='panel'>
+					<div class='panel-heading'>
+						<h3 class='panel-title'><%= __('topic')['new']['new_topic']%></h3>
+					</div>
+					<div class='panel-body'>
+						<form id='topic_form' accept-charset='UTF-8' action='/topics' method="POST">
+							<%- partial('_form.ejs')%>
+                            <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+							<input id='topic_submit' type='button'  value='<%= __('submit')%>' class='btn btn-primary'/>
+						
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

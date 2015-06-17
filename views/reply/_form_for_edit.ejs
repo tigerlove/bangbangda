@@ -1,0 +1,11 @@
+
+<div class='form-group'>
+	<div id='editor-button-bar'>
+	</div>
+	<div>
+        <input type='hidden' value='<%- reply.id %>' name='reply_id'>
+        <input type='hidden' value='<%- reply.to_topic %>' name='to_topic'>
+        <input type="hidden" id='reply_edit_data' name='reply_edit_data' value=''/>
+        <textarea class='editable medium-editor-textarea'  name='content'><%- reply.content%></textarea>
+	</div>
+</div>

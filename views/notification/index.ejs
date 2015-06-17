@@ -1,0 +1,71 @@
+<script>
+    $(document).ready(function() {
+        $('.timeago').timeago();
+        $('.notification').click(function (event) {
+            event.preventDefault();
+            var id = $(this).attr('data-notification-id');
+            var self = $(this);
+            $.get('/notification/' + id + '/read', function (result) {
+                console.log('read -> ' + id);
+                self.addClass('read');
+            })
+        });
+        $('.close').click(function (event) {
+            event.preventDefault();
+            var self = $(this);
+            var href = '/notification/' + $(this).attr('data-nid') + '/delete?_csrf='+encodeURIComponent('<%= _csrf %>');
+
+            $.ajax({
+                type: "DELETE",
+                url: href,
+                success: function (msg) {
+                    console.log('delete notification');
+                    $('#notification_' + self.attr('data-nid')).remove();
+                }
+            });
+        });
+    });
+</script>
+<div class='main'>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-8 col-md-push-2'>
+				<div class='panel'>
+					<div class='panel-heading'>
+						<div class='pull-right'>
+							<a class="btn btn-default" href="/notification/deleteall">
+								<%= __('notification').delete_all %>
+							</a>
+						</div>
+						<h3 class='panel-title'><%= __('notification').notification %></h3>
+					</div>
+					<div class='panel-body'>
+						<ul class='list-group list-group-campo'>
+							<% if(notifications.length > 0){%>
+								<% _.each(notifications,function(n){%>
+									<li class='list-group-item notification' id='notification_<%- n.id%>' class='notification <% if(n.read){%>read<%}%> ' data-notification-id='<%- n.id%>'>
+										<a class='btn list-group-item-remove close' href="javascript:void(0)"  data-nid='<%- n.id %>'>
+											<i class='fa fa-times'></i>
+										</a>
+										<%- partial('_'+n.type+'.ejs',{'n':n})%>
+
+									</li>
+
+								<% }) %>
+							<% }else{%>
+								<li class='list-group-item text-center text-muted empty-message' >
+									<%= __('notification').no_notifications%>
+								</li>
+							<% }%>
+						</ul>
+
+					</div>
+					<div class='panel-footer clearfix'>
+						<div class='pull-right'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

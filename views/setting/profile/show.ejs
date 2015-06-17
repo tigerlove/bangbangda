@@ -1,0 +1,70 @@
+<div class='main'>
+	<div class='container'>
+        <div class='row'>
+  			<!--<div class='col-md-3'>
+
+  			</div>-->
+  			<div class='col-md-10 col-md-offset-1'>
+                <%- partial('../_sidebar.ejs') %>
+  				<div class='panel'>
+  					<div class='panel-heading'>
+  						<h3><%= __('setting')['profiles']['show']['profile_settings']%></h3>
+  					</div>
+  					<div class='panel-body '>
+
+  						<form action='/setting/profile/update' class="form-horizontal user-form" method='POST'>
+                            <% if(req.options.err){%>
+                            <div class="alert alert-warning">
+                                <a class="close" data-dismiss="alert">x</a>
+                                <%= req.options.err%>
+                            </div>
+                            <% } %>
+                            <div class='form-group'>
+  								<label class="control-label col-sm-3" for="username"><%= __('setting').profiles.show.username %></label>
+  								<div class="col-sm-6">
+
+  									<input class="form-control" id="username" name="username" tabindex="1" type="text" value="<%- user.username%>">
+  								</div>
+  							</div>
+
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="email"><%= __('setting').profiles.show.email %></label>
+								<div class="col-sm-6">
+									<input class="form-control" id="email" name="email" tabindex="2" type="text" value="<%- user.email%>">
+								</div>
+							</div>
+
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="displayname"><%= __('setting').profiles.show.displayname %></label>
+								<div class="col-sm-6">
+									<input class="form-control" id="displayname" name="displayname" tabindex="3" type="text" value="<%- user.displayname%>">
+								</div>
+							</div>
+
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="url"><%= __('setting').profiles.show.url %></label>
+								<div class="col-sm-6">
+									<input class="form-control" id="url" name="url" tabindex="4" type="text" value="<%- user.url%>">
+								</div>
+							</div>
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="description"><%= __('setting').profiles.show.description %></label>
+								<div class="col-sm-6">
+									<textarea class="form-control" id="description" name="description" tabindex="5" type="text"><%- user.description%></textarea>
+								</div>
+							</div>
+							<div class='form-group'>
+					
+								<div class="col-sm-6 col-sm-push-3">
+                                    <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+									<input class='btn btn-primary' name='commit' type='submit' value='<%= __('save')%>'>
+								</div>
+							</div>
+  						</form>
+  					</div>
+  				</div>
+  			</div>
+         </div>
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+$font-size-base: 15px;
+@import "bootstrap_override";
+@import "users";
+@import "topics";
+@import "comments";
+@import "notifications";
+@import "subscriptions";
+
+body {
+  background: #fff; font-family: Helvetica, Arial, "Microsoft YaHei", sans-serif;
+}
+html, body{
+  height: 100%;
+  .main{
+    height: 100%;
+    min-height: 100%;
+    height: auto !important;
+  }
+}
+
+.text-hide-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+footer{
+  background: white;
+  padding: 20px 0;
+  line-height: 1.5em;
+  a{
+    color: #999999;
+    &:hover{
+      color: #bbb;
+    }
+  }
+  .copyright{
+  }
+  .friend-links{
+    .link-item{
+      margin-right: 20px;
+    }
+  }
+}
+.pt20{ padding-top: 20px;}
+.submit-bntico{border: 1px solid  #03a9f4; background: none; color:  #03a9f4; padding:6px 25px; margin-bottom: 15px;}
+.submit-bntico:hover,.submit-bntico:active{ background: #03a9f4; color: #fff;}
+

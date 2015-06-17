@@ -1,0 +1,67 @@
+<div class='form-group'>
+	<div id='editor-button-bar'>
+	</div>
+	
+	<textarea id="content_reply"class="editable medium-editor-textarea"  name='content'></textarea>
+	<input type='hidden' id='tags_content' name='tags_content' value=''/>
+    <input type="hidden" id='reply_data' name='reply_data' value=''/>
+</div>
+<input type='hidden' name='_csrf' value='<%= _csrf %>'>
+<input id='reply_submit'  type="button" class='btn btn-success' value=' <%= __('submit')%>'/>
+<script>
+    $(document).ready(function(){
+        var reply_editor = new MediumEditor('.editable', {
+            buttonLabels: 'fontawesome'
+        });
+
+        var url='/uploadimage?_csrf='+encodeURIComponent($('input[name="_csrf"]').val());
+        $('.editable').mediumInsert({
+            editor: reply_editor,
+            addons: {
+                images: {
+                    label: '<span class="fa fa-camera"></span>', // (string) A label for an image addon
+                    uploadScript: url, // (string) A relative path to an upload script
+                    deleteScript: 'delete.php', // (string) A relative path to a delete script
+                    preview: true, // (boolean) Show an image before it is uploaded (only in browsers that support this feature)
+                    captionPlaceholder: 'Type caption for image (optional)', // (string) Caption placeholder
+                    autoGrid: 3, // (integer) Min number of images that automatically form a grid
+                    formData: {},
+                    styles: {
+                        slideshow: {
+                            label: '<span class="fa fa-play"></span>',
+                            added: function ($el) {
+                                $el
+                                        .data('cycle-center-vert', true)
+                                        .cycle({
+                                            slides: 'figure'
+                                        });
+                            },
+                            removed: function ($el) {
+                                $el.cycle('destroy');
+                            }
+                        }
+                    },
+                    actions: false
+                }
+            },
+            paste: {
+                cleanPastedHTML: true,
+                forcePlainText: false
+            }
+        });
+        $('#reply_submit').click(function(){
+            var allcontents=reply_editor.serialize();
+            console.log(allcontents);
+            for(var i in allcontents){
+                var data=allcontents[i]['value'];
+                $('#reply_data').val(data);
+                console.log(data);
+            }
+            $('#reply_form').submit();
+
+        })
+    });
+</script>
+
+	
+	

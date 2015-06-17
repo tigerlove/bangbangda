@@ -1,0 +1,100 @@
+<script>
+    $(document).ready(function () {
+        $('.timeago').timeago();
+        $('.at').click(function(event){
+            event.preventDefault();
+            var self=$(this);
+            var name=self.attr('data-user-name');
+            var floor=self.attr('data-floor');
+            var text=$('.editable');
+            text.focus();
+            text.prepend("#"+floor+"@"+name);
+            console.log('ok');
+
+        });
+        $('.js-like-reply').click(function (event) {
+            event.preventDefault();
+            var self = $(this);
+            $.get(self.attr('href'), function (r) {
+                var href = self.attr('href');
+                console.log(href);
+                if (href.indexOf('unlike') >= 0) {
+                    href = href.replace('unlike', 'like');
+                    self.children('i').attr('class', 'fa fa-heart-o');
+                } else {
+                    href = href.replace('like', 'unlike');
+                    self.children('i').attr('class', 'fa fa-heart');
+                }
+
+                self.attr('href', href);
+                $('#comment-' + r.id + ' .js-upvote-replycount').html(r.upvote_ids.length);
+
+            });
+        });
+        $('.js-reply-delete').click(function(event){
+            event.preventDefault();
+            var href = $(this).attr('href')+'?_csrf='+encodeURIComponent('<%= _csrf %>');
+            var data_id = $(this).attr('data-id');
+            $.ajax({
+                type: "DELETE",
+                url: href,
+                success: function (msg) {
+                    console.log('delete reply');
+                    $('#comment-'+data_id).remove();
+                }
+            });
+        })
+    });
+</script>
+<% _.each(topic.replies , function (r){ %>
+<li class='list-group-item comment' id='comment-<%- r.id%>' data-creator-id='<% r.owner%>'>
+    <a class='list-group-item-avatar' href="~<%= replies_owner_map[r.owner].name%>">
+        <img class='img-rounded img-avatar-md' alt="avatar" src="/avatar/<%- r.owner%>">
+    </a>
+    <div class="list-group-item-content comment-cont">
+        <div class='list-group-item-heading '>
+            <div class="pull-left">
+            <a class='comment-user' href="~<%= replies_owner_map[r.owner].name%>" data-name="<%= replies_owner_map[r.owner].name %>">
+                <b><%= replies_owner_map[r.owner].displayname%></b><!--@<%= replies_owner_map[r.owner].name %>-->
+            </a>
+            <span class="comment-user-font">
+            <%= r.floors %>楼
+                <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>
+            <span class='timeago' title="<%= r.createdAt.toISOString()%>"></span></span>
+            </div>
+
+        </div>
+        <article class='comment-body'>
+            <%- (r.content) %>
+        </article>
+        <div class='list-group-item-actions clearfix'>
+
+                <a class='btn at comment-at' data-user-name='<%- replies_owner_map[r.owner].name %>' data-floor='<%- r.floors%>'>
+                  <!--  <i class='fa fa-reply '></i>--> <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>回复
+                </a>
+                <% if(req.options.user){ %>
+                    <% if(_.contains(r.upvote_ids, req.options.user.id)){ %>
+                        <a class='btn js-like-reply ' href='/reply/<%- r.id %>/unlike'><i class='fa fa-heart'></i></a>
+                    <% }else{ %>
+                        <a class='btn js-like-reply ' href='/reply/<%- r.id %>/like'><i class='fa fa-heart-o'></i></a>
+                    <% } %>
+                <% } else{%>
+                    <i class='fa fa-heart'></i>
+                <% }%>
+                <span class='js-upvote-replycount'><%- r.upvote_ids.length %></span>
+
+                <% if(req.options.user && req.options.user.username == replies_owner_map[r.owner].name){ %>
+                    <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>
+                    <a class='' href="/reply/<%- r.id %>/edit">
+                        <i class='fa fa-pencil'></i>
+                    </a>
+                    <%= '&nbsp;&nbsp;-&nbsp;&nbsp;' %>
+                    <a class='js-reply-delete' href="/reply/<%- r.id %>/delete" data-id="<%- r.id %>">
+                        <i class='fa fa-trash-o'></i>
+                    </a>
+                <% } %>
+               
+        </div>
+    </div>
+</li>
+<% }) %>

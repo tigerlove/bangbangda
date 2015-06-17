@@ -1,0 +1,49 @@
+<div class='main'>
+	<div class='container'>
+        <div class='row'>
+  			<!--<div class='col-md-3'>
+
+  			</div>-->
+  			<div class='col-md-10 col-md-offset-1'>
+                <%- partial('../_sidebar.ejs') %>
+  				<div class='panel'>
+  					<div class='panel-heading'>
+  						<h3><%= __('setting').passwords.show.password_settings %></h3>
+  					<div class='panel-body'>
+  						<form action='/setting/password/update' class="form-horizontal user-form" method='POST'>
+  							<div class='form-group'>
+  								<label class="control-label col-sm-3" for="current_password"><%= __('setting').passwords.show.current_password %></label>
+  								<div class="col-sm-6">
+  									<input class="form-control" id="current_password" name="current_password" tabindex="1" type="password" >
+  								</div>
+  							</div>
+
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="password"><%= __('setting').passwords.show.new_password %></label>
+								<div class="col-sm-6">
+									<input class="form-control" id="password" name="password" tabindex="2" type="password" >
+								</div>
+							</div>
+
+
+							<div class='form-group'>
+								<label class="control-label col-sm-3" for="password_confirmation"><%= __('setting').passwords.show.confirm_password %></label>
+								<div class="col-sm-6">
+									<input class="form-control" id="password_confirmation" name="password_confirmation" tabindex="3" type="password" >
+								</div>
+							</div>
+
+							<div class='form-group'>
+					
+								<div class="col-sm-6 col-sm-push-3">
+                                    <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+									<input class='btn btn-primary' name='commit' type='submit' value='<%= __('save')%>'>
+								</div>
+							</div>
+  						</form>
+  					</div>
+  				</div>
+  			</div>
+         </div>
+    </div>
+</div>

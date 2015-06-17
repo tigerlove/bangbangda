@@ -1,0 +1,26 @@
+<!--<div class='list-group'>-->
+<ul class="nav nav-tabs " >
+    <li role="presentation"  class='  <% if(req.path =='/setting/profile'){ %> active <% } %> '><a  href='/setting/profile' >
+		<%= __('layouts')['settings']['profile'] %>
+		<!--<div class='pull-right'>
+			<i class='fa fa-chevron-right'></i> class='list-group-item
+		</div>-->
+	</a></li>
+
+    <li role="presentation" class=' <% if(req.path =='/setting/password'){ %> active <% } %>' ><a  href='/setting/password'  >
+		<%= __('layouts')['settings']['password'] %>
+		<!--<div class='pull-right'>
+			<i class='fa fa-chevron-right'></i>'
+		</div>-->
+	</a></li>
+
+
+    <li role="presentation" class='<% if(req.path =='/avatar/edit'){ %> active <% } %>'><a href='/avatar/edit'  >
+		<%= __('avatar') %>
+		<!--<div class='pull-right'>
+			<i class='fa fa-chevron-right'></i>
+		</div>-->
+	</a></li>
+</ul>
+<!--
+</div>-->

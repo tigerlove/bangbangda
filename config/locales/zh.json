@@ -1,0 +1,285 @@
+{
+    "avatar": "头像",
+    "users": "用户",
+    "community": "社区",
+    "previous": "上一页",
+    "next": "下一页",
+    "signup": "注册",
+    "login": "登录",
+    "toptopic":"置顶",
+    "logout": "注销",
+    "edit": "编辑",
+    "submit": "提交",
+    "update": "更新",
+    "save": "保存",
+    "delete": "删除",
+    "add": "添加",
+    "topics": "话题",
+    "replies": "回复",
+    "title": "标题",
+    "tag": "标签",
+    "created_at": "创建于",
+    "updated_at": "更新于",
+    "edited_at": "编辑于",
+    "replied_at": "回复于",
+    "or": "或者",
+    "zh": "中文（简体）",
+    "en": "英文",
+    "success_update": "成功更新",
+    "homepage": {
+        "index": {
+            "newest": "最新",
+            "create_topic": "创建话题",
+            "site_status": "全站统计",
+            "users_count": "用户数",
+            "topics_count": "话题数",
+            "replies_count": "回帖数"
+        }
+    },
+    "layouts": {
+        "settings": {
+            "password": "密码",
+            "profile": "个人资料"
+        },
+        "topbar": {
+            "profiles": "个人资料",
+            "admin_dashboard": "管理面板"
+        }
+
+    },
+    "people": {
+        "show": {
+            "create_topic": "创建的话题",
+            "reply_topic": "回复的话题",
+            "upvote_topic": "喜欢的话题",
+            "upvote_reply": "喜欢的回复",
+            "edit_profile": "编辑个人资料",
+            "person_status": "个人统计",
+            "topics_count": "话题数",
+            "replies_count": "回帖数"
+        }
+    },
+    "partials": {
+        "_sidebar_profile": {
+            "signed_as": "登录为",
+            "unread_notifications": "条未读消息"
+        }
+    },
+    "reply": {
+        "edit": {
+            "reply": "回复",
+            "edit": "编辑回复",
+            "update": "更新"
+        },
+        "new": {
+            "topics": "话题",
+            "new_reply": "新回复"
+        },
+        "_reply": {
+            "like_count": "人喜欢",
+            "reply": "回复"
+        },
+        "no_reply" : "没有回复"
+
+
+    },
+    "session": {
+        "new": {
+            "name_or_email": "用户名或邮箱",
+            "remember_me": "记住我",
+            "password": "密码"
+        }
+    },
+    "notification": {
+        "notification": "通知",
+        "delete_all": "删除所有",
+        "no_notifications": "没有通知"
+    },
+    "setting": {
+        "avatar": {
+            "edit": {
+                "avatar_set": "头像设置",
+                "profile_avatar": "头像"
+            }
+        },
+        "accounts": {
+            "show": {
+                "account_settings": "账户设置"
+            }
+        },
+        "passwords": {
+            "show": {
+                "password_settings": "密码设置",
+                "current_password": "当前密码",
+                "new_password": "新密码",
+                "confirm_password": "确认新密码"
+            }
+        },
+        "profiles": {
+            "show": {
+                "profile_settings": "资料设置",
+                "profile_avatar": "头像",
+                "username": "用户名",
+                "displayname": "显示名",
+                "email": "邮箱",
+                "description": "简介",
+                "url": "链接"
+            }
+        }
+
+    },
+    "topic": {
+        "show": {
+            "topics": "话题",
+            "publish": "发布",
+            "edit": "编辑",
+            "like_count": "人喜欢",
+            "reply": "回复",
+            "relate_topics": "相关话题"
+        },
+        "new": {
+            "new_topic": "创建话题",
+            "": ""
+        },
+        "edit": {
+            "edit": "编辑话题"
+        },
+        "_topic": {
+            "comment_count": "条评论",
+            "": ""
+        },
+        "title": "标题",
+        "tag": "标签"
+    },
+    "user": {
+        "new": {
+            "username": "用户名",
+            "email": "邮箱",
+            "password": "密码",
+            "displayname":"昵称",
+            "confirm_password": "确认密码"
+        }
+    },
+    "search": {
+        "show": {
+            "loading": "载入中..."
+        }
+    },
+    "admin": {
+        "dashboard": {
+            "show": {
+                "more": "更多",
+                "topics": "主题",
+                "today_total_count": "今天 %{today_count} / 总共 %{total_count}",
+                "title": "标题",
+                "user": "用户",
+                "replies_count": "回复数",
+                "replies": "回复",
+                "users": "用户",
+                "content": "内容",
+                "name": "用户名",
+                "profile_name": "名字",
+                "email": "Email",
+                "sign_up": "注册时间"
+            }
+        },
+        "users": {
+            "index": {
+                "name": "用户名",
+                "profile_name": "名字",
+                "email": "Email",
+                "sign_up": "注册时间"
+            },
+            "show": {
+                "users": "用户",
+                "person_page": "个人页面",
+                "url": "网址",
+                "description": "简介",
+                "email": "Email",
+                "delete_confirm": "确认删除用户 %{name} 吗？（主题和回复会被一并删除且不能恢复）",
+                "topics": "主题（%{count}）",
+                "replies": "回复（%{count}）",
+                "action": "操作",
+                "title": "标题",
+                "replies_count": "回复数",
+                "created_at": "创建时间",
+                "content": "内容"
+            },
+            "destroy": {
+                "delete_success": "成功删除用户 %{name}"
+            }
+        },
+        "topics": {
+            "index": {
+                "title": "标题",
+                "user": "用户",
+                "replies_count": "回复数"
+            },
+            "show": {
+                "topics": "主题",
+                "user": "用户",
+                "content": "内容",
+                "marker_count": "收藏数",
+                "replies_count": "回复数",
+                "delete_confirm": "确定删除主题 %{title} 吗？（所有回帖会被一并删除）",
+                "action": "操作"
+            },
+            "destroy": {
+                "delete_success": "成功删除主题 %{title}"
+            }
+        },
+        "replies": {
+            "index": {
+                "content": "内容",
+                "user": "用户"
+            },
+            "show": {
+                "replies": "回复",
+                "topic": "主题",
+                "user": "用户",
+                "content": "内容",
+                "delete_confirm": "确定删除回复吗？",
+                "action": "操作"
+            },
+            "destroy": {
+                "delete_success": "成功删除回复"
+            }
+        },
+        "sites": {
+            "show": {
+                "site_settings": "网站设置",
+                "site_name": "网站名"
+            }
+        },
+        "fragments": {
+            "index": {
+                "field": "区域",
+                "description": "描述",
+                "action": "动作",
+                "home_mainbar_bottom": "首页主栏底部",
+                "home_mainbar_bottom_description": "",
+                "home_sidebar_bottom": "首页边栏底部",
+                "home_sidebar_bottom_description": "",
+                "topics_sidebar_bottom": "话题边栏底部",
+                "topics_sidebar_bottom_description": "",
+                "footer": "全站底部",
+                "footer_description": "网站信息"
+            },
+            "edit": {
+                "fragments": "页面片段"
+            }
+        }
+    },
+    "errors": {
+        "no_allow_slash": "不能包含斜杠",
+        "messages": {
+            "tag_string": "Tag 不能超过%{limit}个",
+            "current_password_no_match": "当前密码不匹配"
+        }
+    },
+    "_marks_count": {
+        "marked": "已收藏",
+        "mark": "收藏",
+        "marker_count": "%{count}人收藏"
+    }
+}
